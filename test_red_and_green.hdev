@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.1" halcon_version="13.0">
+<procedure name="main">
+<interface/>
+<body>
+<l>read_image (Image, 'C:/Users/xgf-dell-003/Desktop/c5f66e8e-e916-4408-b607-150e91c7bcad.jpg')</l>
+<l>decompose3 (Image, r, g, b) </l>
+<c></c>
+<c>*裁剪中间指示灯区域，只对这片区域操作</c>
+<l>gen_rectangle1 (ROI_0, 55.1313, 639.625, 538.881, 965.875)</l>
+<l>reduce_domain (Image, ROI_0, ImageReduced)</l>
+<l>*crop_domain (ImageReduced, ImagePart)</l>
+<l>decompose3 (ImageReduced, r, g, b)  </l>
+<c></c>
+<l>*threshold (r, Regionr, 0, 0) </l>
+<c></c>
+<l>trans_from_rgb(r, g, b, H, S, V, 'hsv')</l>
+<c></c>
+<l>threshold (H, Region, 50, 80)</l>
+<c></c>
+<c></c>
+<l>*threshold (S, Region, 1, 1)</l>
+<l>*threshold (V, Region, 0, 0)</l>
+<c></c>
+<c></c>
+<l>*threshold (g, Regiong, 0, 128) </l>
+<l>*threshold (b, Regionb, 128, 156) </l>
+<l>*union2 (Regionr, Regiong, Regionballs)</l>
+<c></c>
+<c>*求Regionr与Regiong两个区域的并集</c>
+<l>*union2 (Regionballs, Regionb, Regionballs)</l>
+<c></c>
+<c>*求Regionballs与Regionb两个区域的并集</c>
+<l>*connection (Regionballs, Regionballs)</l>
+<c></c>
+<l>*dev_clear_window () </l>
+<c></c>
+<c>*清空窗口</c>
+<l>*dev_display (Image) </l>
+<c></c>
+<l>disp_message (200000, '绿色指示灯', 'window', 60, 220, 'green', 'true')</l>
+<l>*disp_message (200000, '红色指示灯', 'window', 140, 220, 'red', 'true')</l>
+<l>disp_message (200000, '红色指示灯', 'window', 220, 220, 'red', 'true')</l>
+<l>*disp_message (200000, '绿色指示灯', 'window', 300, 220, 'green', 'true')</l>
+<c></c>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>
